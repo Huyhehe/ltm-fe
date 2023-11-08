@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { asyncLogin, asyncRegister, reset } from "../store/authSlice";
 import { RootState } from "../store/store";
 import GG from "../assets/images/search.png";
+import { API_ENDPOINT } from "../utils/constants";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -25,7 +26,7 @@ export default function Navbar() {
   };
 
   const handleLoginOAuth = () => {
-    window.open("http://localhost:5434/api/auth/google", "_self");
+    window.open(`${API_ENDPOINT}/api/auth/google`, "_self");
   };
 
   const handleLogin = async () => {

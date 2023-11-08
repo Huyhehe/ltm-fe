@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { API_ENDPOINT } from "../../utils/constants";
 
 export const problemStatusApi = createApi({
   reducerPath: "problemStatusApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5434/api/code/",
+    baseUrl: `${API_ENDPOINT}/code/`,
   }),
   endpoints: (builder) => ({
     getProblemStatus: builder.query({

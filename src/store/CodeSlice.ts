@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { UserSubmissionType } from "../utils/type";
+import { API_ENDPOINT } from "../utils/constants";
 
 const initialState: InitialStateType = {
   currentCode: "",
@@ -11,8 +12,6 @@ const initialState: InitialStateType = {
   userSubmission: [],
   loading: false,
 };
-
-const URL = "http://localhost:5434/api";
 
 export const asyncProgrammemRun = createAsyncThunk(
   "code/runProgramme",
@@ -25,7 +24,7 @@ export const asyncProgrammemRun = createAsyncThunk(
     currentLang: string;
     userInput: string;
   }) => {
-    const res = await fetch(`${URL}/code/run`, {
+    const res = await fetch(`${API_ENDPOINT}/code/run`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -61,7 +60,7 @@ export const asyncProgrammemSubmit = createAsyncThunk(
     problemId: string;
     userId: string;
   }) => {
-    const res = await fetch(`${URL}/code/submit`, {
+    const res = await fetch(`${API_ENDPOINT}/code/submit`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -89,7 +88,9 @@ export const asyncSubmissionGet = createAsyncThunk(
   async ({ problemId, userId }: { problemId: string; userId: string }) => {
     console.log("first");
     try {
-      const res = await fetch(`${URL}/code/submission/${problemId}/${userId}`);
+      const res = await fetch(
+        `${API_ENDPOINT}/code/submission/${problemId}/${userId}`
+      );
       const data = await res.json();
       if (res.ok) return data;
       else toast.error(data);
@@ -102,7 +103,7 @@ export const asyncSubmissionGet = createAsyncThunk(
 export const asyncSubmissionDownload = createAsyncThunk(
   "code/downloadSubmission",
   async (jobId: string) => {
-    window.open(`${URL}/code/download/${jobId}`);
+    window.open(`${API_ENDPOINT}/code/download/${jobId}`);
   }
 );
 

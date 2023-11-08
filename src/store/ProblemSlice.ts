@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { ProblemType, PropblemDetailType, TestcaseType } from "../utils/type";
+import { API_ENDPOINT } from "../utils/constants";
 
 const initialState: InitialStateType = {
   testcase: [],
@@ -8,8 +9,6 @@ const initialState: InitialStateType = {
   problems: [],
   singleProblem: undefined,
 };
-
-const URL = "http://localhost:5434/api";
 
 export const asyncProblemAdd = createAsyncThunk(
   "problem/addProblem",
@@ -24,7 +23,7 @@ export const asyncProblemAdd = createAsyncThunk(
     userId: string;
     callback: () => void;
   }) => {
-    const res = await fetch(`${URL}/problem/add`, {
+    const res = await fetch(`${API_ENDPOINT}/problem/add`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -56,7 +55,7 @@ export const asyncProblemEdit = createAsyncThunk(
     userId: string;
     callback: () => void;
   }) => {
-    const res = await fetch(`${URL}/problem/edit/${id}`, {
+    const res = await fetch(`${API_ENDPOINT}/problem/edit/${id}`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -76,7 +75,7 @@ export const asyncProblemEdit = createAsyncThunk(
 export const asyncProblemDelete = createAsyncThunk(
   "problem/deleteProblem",
   async ({ id, callback }: { id: string; callback: () => void }) => {
-    const res = await fetch(`${URL}/problem/delete/${id}`, {
+    const res = await fetch(`${API_ENDPOINT}/problem/delete/${id}`, {
       method: "DELETE",
       credentials: "include",
       headers: {
@@ -95,7 +94,7 @@ export const asyncProblemDelete = createAsyncThunk(
 export const asyncProblemGet = createAsyncThunk(
   "problem/getProblem",
   async () => {
-    const res = await fetch(`${URL}/problem/`, {
+    const res = await fetch(`${API_ENDPOINT}/problem/`, {
       credentials: "include",
     });
     const data = await res.json();
@@ -108,7 +107,7 @@ export const asyncProblemGet = createAsyncThunk(
 export const asyncSingleProblemGet = createAsyncThunk(
   "problem/getSingleProblem",
   async (id: string) => {
-    const res = await fetch(`${URL}/problem/` + id);
+    const res = await fetch(`${API_ENDPOINT}/problem/` + id);
     const data = await res.json();
     if (res.ok) {
       return data;

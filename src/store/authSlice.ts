@@ -1,17 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { UserType } from "../utils/type";
+import { API_ENDPOINT } from "../utils/constants";
 
 const initialState: InitialStateType = {
   user: undefined,
 };
 
-const URL = "http://localhost:5434/api";
-
 export const asyncLoginOAuth = createAsyncThunk(
   "auth/asyncLoginOAuth",
   async () => {
-    const res = await fetch(`${URL}/auth/success`, { credentials: "include" });
+    const res = await fetch(`${API_ENDPOINT}/auth/success`, {
+      credentials: "include",
+    });
     const data = await res.json();
     if (res.ok) {
       return data;
@@ -20,14 +21,14 @@ export const asyncLoginOAuth = createAsyncThunk(
 );
 
 export const asyncLogout = createAsyncThunk("auth/asyncLogout", async () => {
-  await fetch(`${URL}/auth/logout`, { credentials: "include" });
+  await fetch(`${API_ENDPOINT}/auth/logout`, { credentials: "include" });
   return undefined;
 });
 
 export const asyncLogin = createAsyncThunk(
   "auth/asyncLogin",
   async ({ email, password }: { email: string; password: string }) => {
-    const res = await fetch(`${URL}/auth/login`, {
+    const res = await fetch(`${API_ENDPOINT}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export const asyncRegister = createAsyncThunk(
   "auth/asyncRegister",
   async ({ email, password }: { email: string; password: string }) => {
     try {
-      const res = await fetch(`${URL}/auth/register`, {
+      const res = await fetch(`${API_ENDPOINT}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
