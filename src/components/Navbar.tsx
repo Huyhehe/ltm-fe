@@ -26,7 +26,7 @@ export default function Navbar() {
   };
 
   const handleLoginOAuth = () => {
-    window.open(`${API_ENDPOINT}/api/auth/google`, "_self");
+    window.open(`${API_ENDPOINT}/auth/google`, "_self");
   };
 
   const handleLogin = async () => {
@@ -48,7 +48,7 @@ export default function Navbar() {
       <div className="flex items-center font-mono h-full px-12 justify-between z-50">
         <h1 className="text-3xl font-black text-slate-200 z-50">
           <Link to={"/"} className="text-inherit">
-            SimpleOJ
+            NormalOJ
           </Link>
         </h1>
         <div className="flex items-center z-50">
@@ -94,7 +94,7 @@ export default function Navbar() {
           <Text id="modal-title" size={18}>
             Welcome to{" "}
             <Text b size={18}>
-              SimpleOJ
+              NormalOJ
             </Text>
           </Text>
         </Modal.Header>
